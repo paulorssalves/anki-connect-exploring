@@ -1,5 +1,5 @@
 # TODO:
-- [X]arrumar forma de extrair contexto a partir da palavra 
+- [X] arrumar forma de extrair contexto a partir da palavra 
 
 - [ ] Aperfeiçoar o modo como o scraper do BibleHub toma a decisão de qual link seguir
   - talvez se possa tentar lematizar os próprios títulos?
