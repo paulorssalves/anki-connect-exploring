@@ -6,3 +6,13 @@
 
 - [ ] Tornar a palavra em evidência da *concordance* negrita
 - [ ] cortar última e primeira palavra de uma dada *concordance* **desde que** ela não seja a palavra em foco. 
+
+- [ ] Aperfeiçoar a função `searcher` como exposto no comentário acima dela
+- [ ] Produzir alguma forma de determinar se a palavra obtida difere da inserida
+
+- [ ] Organizar os arquivos dos programas:
+	- Reduzir a redundância das ferramentas utilizadas e seus nomes
+		- "Tools" e "Toolset", por exemplo
+	- Colocá-las em uma pasta (como "Tools", neste caso sendo necessário alterar o nome de "Tools" e "Toolset"
+	- Criar uma pasta para ser o diretório dos .csv
+	- Criar uma pasta para ser o diretório dos .txt
