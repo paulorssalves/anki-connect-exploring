@@ -1,6 +1,6 @@
 from wiktionaryparser import WiktionaryParser
 
-INPUT_LANGUAGE="ru", "Russian"
+INPUT_LANGUAGE="Ancient Greek"
 parser = WiktionaryParser()
 
 class DataNotAvailable(Exception):
