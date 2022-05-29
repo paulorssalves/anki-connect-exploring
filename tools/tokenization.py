@@ -1,9 +1,10 @@
 from nltk import word_tokenize, sent_tokenize, FreqDist, Text
+from cltk.alphabet.text_normalization import cltk_normalize
 
 def get_text(file):
     f = open(file, "r", encoding="utf-8")
     text = f.read()
-    tokens = word_tokenize(text)
+    tokens = word_tokenize(cltk_normalize(text))
     reworked_text = Text(tokens)
 
     return text, reworked_text
