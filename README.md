@@ -5,6 +5,8 @@
   - talvez se possa tentar lematizar os próprios títulos?
 
 - [ ] Tornar a palavra em evidência da *concordance* negrita
+	- é necessário inserir o HTML na string
+	- É necessário discriminar o conteúdo "left" e "right" da concordance
 - [ ] cortar última e primeira palavra de uma dada *concordance* **desde que** ela não seja a palavra em foco. 
 
 - [ ] Aperfeiçoar a função `searcher` como exposto no comentário acima dela
@@ -16,4 +18,7 @@
 	- Criar uma pasta para ser o diretório dos .csv
 	- Criar uma pasta para ser o diretório dos .txt
 
-- [ ] Direcionar os outputs e blanks direto para seus diretórios específicos
+- [X] Direcionar os outputs e blanks direto para seus diretórios específicos
+
+- [X] Inserir *qual é a palavra original* nos dados a serem inseridos no flashcard
+- [X] Inserir *a fonte dos dados* nos dados a serem inseridos no flashcard
