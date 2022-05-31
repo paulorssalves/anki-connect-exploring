@@ -22,3 +22,5 @@
 
 - [X] Inserir *qual é a palavra original* nos dados a serem inseridos no flashcard
 - [X] Inserir *a fonte dos dados* nos dados a serem inseridos no flashcard
+
+- [ ] Limpar os resultados das palavras obtidas do BibleHub para remover as flexões extras dos termos
