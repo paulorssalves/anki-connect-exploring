@@ -40,7 +40,7 @@ def get_context_and_clean_up(word, concordance):
         del word_list[0]
         if word_list[0] in string.punctuation:
             del word_list[0] 
-    if word_list[len(word_list) - 1] is not word:
+    if word_list[len(word_list) - 1] not in (word, bold_word):
         del word_list[len(word_list) - 1]
 
     # get string with extra spaces
