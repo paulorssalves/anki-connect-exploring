@@ -1,9 +1,17 @@
 # TODO:
-- [X] arrumar forma de extrair contexto a partir da palavra 
 
 - [ ] Aperfeiçoar o modo como o scraper do BibleHub toma a decisão de qual link seguir
   - talvez se possa tentar lematizar os próprios títulos?
   - Testar com a palavra "Πατηρ"
+
+- [ ] Procurar os blanks em outros lugares
+	- considerar: 
+		- [ ] Perseus Digital Library
+		- [ ] Wiktionary
+
+# DONE
+- [X] arrumar forma de extrair contexto a partir da palavra 
+
 
 - [X] Tornar a palavra em evidência da *concordance* negrita
 	- é necessário inserir o HTML na string
@@ -26,7 +34,3 @@
 
 - [X] Limpar os resultados das palavras obtidas do BibleHub para remover as flexões extras dos termos
 
-- [ ] Procurar os blanks em outros lugares
-	- considerar: 
-		- [ ] Perseus Digital Library
-		- [ ] Wiktionary
