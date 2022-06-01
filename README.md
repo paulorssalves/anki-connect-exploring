@@ -3,6 +3,7 @@
 
 - [ ] Aperfeiçoar o modo como o scraper do BibleHub toma a decisão de qual link seguir
   - talvez se possa tentar lematizar os próprios títulos?
+  - Testar com a palavra "Πατηρ"
 
 - [X] Tornar a palavra em evidência da *concordance* negrita
 	- é necessário inserir o HTML na string
@@ -24,3 +25,8 @@
 - [X] Inserir *a fonte dos dados* nos dados a serem inseridos no flashcard
 
 - [X] Limpar os resultados das palavras obtidas do BibleHub para remover as flexões extras dos termos
+
+- [ ] Procurar os blanks em outros lugares
+	- considerar: 
+		- [ ] Perseus Digital Library
+		- [ ] Wiktionary
