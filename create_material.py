@@ -268,5 +268,5 @@ if __name__ == "__main__":
         print("\nDone.\n")
 
     except urllib.error.URLError as e:
-        print("\nThe", e, "error occurred. You need to have to an Anki instance open.")
+        print("\nThe", e, "error occurred. You need to have an Anki instance open.")
 
