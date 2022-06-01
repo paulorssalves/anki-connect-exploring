@@ -199,7 +199,7 @@ def produce_material(output_file_name, data=None, blanks=None):
     if type(output_file_name) is not str:
         raise TypeError("variable 'output_file_name' must be of type 'str'.")
 
-    if data is not None:
+    if (data is not None) and (data != []):
         for item in data:
             if item[0] == "BibleHub":
 
@@ -225,13 +225,12 @@ def produce_material(output_file_name, data=None, blanks=None):
                                                     encoding="utf-8", mode="a", 
                                                     header=False, index=False)
             
-    if blanks != []:
+    if (blanks is not None) and (blanks != []):
         blanks_dataframe = pd.DataFrame(blanks)
         blanks_dataframe= blanks_dataframe.transpose()
         blanks_dataframe.to_csv(os.path.join("blanks", output_file_name+"_blanks.csv"), 
                                             encoding="utf-8", mode="a", 
                                             header=False, index=False)
-
 
 
 if __name__ == "__main__":
