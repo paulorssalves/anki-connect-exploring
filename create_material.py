@@ -201,7 +201,7 @@ def produce_material(output_file_name, data=None, blanks=None):
 
     if (data is not None) and (data != []):
         for item in data:
-            if item[0] == "BibleHub":
+            if item[0] is not None:
 
                 curr = item[2]
                 concordances = curr["concordances"]
