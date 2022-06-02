@@ -153,10 +153,15 @@ def progress(count, total, suffix=''):
     sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', suffix))
     sys.stdout.flush()  # As suggested by Rom Ruben
 
+def time_log():
+    DURATION = 60
+    for second in range(DURATION):
+        sys.stdout.write('Wait... %s/%s\r' % (second, DURATION))
+        time.sleep(1)
+        sys.stdout.flush()
+
 def acquire_data(list, amount=None):
 
-    ONE_MINUTE = 60
-    ONE_SECOND = 1
     RESPECTABLE_RANGE=10
 
     bible_searches = 0
@@ -187,10 +192,8 @@ def acquire_data(list, amount=None):
         bible_searches += word_dict["search_num"]
 
         if bible_searches >= RESPECTABLE_RANGE:
-            for n in range(ONE_MINUTE):
-                time.sleep(ONE_SECOND)
-                print("Wait... {}/60".format(n))
-                bible_searches = 0
+            time_log()
+            bible_searches = 0
     
     return data, blanks
 
@@ -235,6 +238,13 @@ def produce_material(output_file_name, data=None, blanks=None):
 
 if __name__ == "__main__":
 
+    def get_number():
+        try: 
+            number = sys.argv[3]
+            return number
+        except IndexError:
+            return None 
+
     print("Running lemmatizer...\n")
     lemmatizer = GreekBackoffLemmatizer()
 
@@ -256,10 +266,12 @@ if __name__ == "__main__":
         notesInfo = invoke('notesInfo', notes=noteIDs)
 
         reworked_fwl = get_input_for_material(wordlist, notesInfo)
+        print(reworked_fwl)
 
         print("\nGetting online data...")
         print()
-        data, blanks = acquire_data(reworked_fwl)
+
+        data, blanks = acquire_data(reworked_fwl, get_number())
         print()
 
         print("\nCreating material...")

@@ -9,6 +9,8 @@
 		- [ ] Perseus Digital Library
 		- [ ] Wiktionary
 
+- [X] Fazer com que o *Wait* entre iterações de busca não produza múltiplas linhas, mas que se atualize em um mesmo lugar tal como a barra de carregamento.
+
 # DONE
 - [X] arrumar forma de extrair contexto a partir da palavra 
 
