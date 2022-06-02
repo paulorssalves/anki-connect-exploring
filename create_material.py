@@ -268,8 +268,7 @@ if __name__ == "__main__":
         reworked_fwl = get_input_for_material(wordlist, notesInfo)
         print(reworked_fwl)
 
-        print("\nGetting online data...")
-        print()
+        print("\nGetting online data...\n")
 
         data, blanks = acquire_data(reworked_fwl, get_number())
         print()
