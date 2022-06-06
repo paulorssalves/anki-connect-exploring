@@ -212,8 +212,8 @@ def produce_material(output_file_name, data=None, blanks=None):
                 dc = {
                     "word": clean_up(concordances["Original Word"]),
                     "phonetics": concordances["Phonetic Spelling"],
-                    "category": concordances["Part of Speech"],
-                    "meaning": concordances['Definition'],
+                    "category": "\""+concordances["Part of Speech"]+"\"",
+                    "meaning": "\""+concordances['Definition']+"\"",
                     "greek": fetch_group_as_string([tuple[0] for tuple in curr['examples']], single_list=True),
                     "english": fetch_group_as_string([tuple[1] for tuple in curr['examples']], single_list=True)
                 }
