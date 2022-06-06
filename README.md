@@ -9,7 +9,8 @@
 		- [ ] Perseus Digital Library
 		- [ ] Wiktionary
 
-- [X] Fazer com que o *Wait* entre iterações de busca não produza múltiplas linhas, mas que se atualize em um mesmo lugar tal como a barra de carregamento.
+- [X] acrescentar aspas a todas as células do .csv, para evitar que eventuais vírgulas baguncem a formatação do documento
+	- basicamente estão sendo acrescentados espaços/quebras-de-células entre interpontos e ponto-e-vírgulas
 
 # DONE
 - [X] arrumar forma de extrair contexto a partir da palavra 
@@ -35,4 +36,6 @@
 - [X] Inserir *a fonte dos dados* nos dados a serem inseridos no flashcard
 
 - [X] Limpar os resultados das palavras obtidas do BibleHub para remover as flexões extras dos termos
+
+- [X] Fazer com que o *Wait* entre iterações de busca não produza múltiplas linhas, mas que se atualize em um mesmo lugar tal como a barra de carregamento.
 

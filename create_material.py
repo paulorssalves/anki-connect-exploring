@@ -217,7 +217,7 @@ def produce_material(output_file_name, data=None, blanks=None):
                     "greek": fetch_group_as_string([tuple[0] for tuple in curr['examples']], single_list=True),
                     "english": fetch_group_as_string([tuple[1] for tuple in curr['examples']], single_list=True)
                 }
-                dc["context"] = get_context_and_clean_up(item[1], wf)
+                dc["context"] = "\""+get_context_and_clean_up(item[1], wf)+"\""
                 dc["original"] = item[1]        
                 dc["source"] = item[0]        
                 # to display which word is being worked upon at the time
@@ -275,6 +275,12 @@ if __name__ == "__main__":
 
         print("\nCreating material...")
         produce_material(sys.argv[1], data=data, blanks=blanks)
+        regex_repair = re.compile("\"\"")
+
+        print("\nRemoving safety quotation marks...\n")
+        with open(os.path.join("output", sys.argv[1]+".csv")) as csv:
+            for line in csv:
+                regex_repair.sub("", line)
 
         print("\nDone.\n")
 
