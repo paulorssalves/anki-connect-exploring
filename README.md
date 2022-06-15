@@ -9,8 +9,8 @@
 		- [ ] Perseus Digital Library
 		- [ ] Wiktionary
 
-- [X] acrescentar aspas a todas as células do .csv, para evitar que eventuais vírgulas baguncem a formatação do documento
-	- basicamente estão sendo acrescentados espaços/quebras-de-células entre interpontos e ponto-e-vírgulas
+- [ ] Fazer com que programa analise o CSV no final da iteração e remova as aspas extras
+- [ ] Trocar os "\n" do coletor de exemplos do BibleHub por "<br><br>" 
 
 # DONE
 - [X] arrumar forma de extrair contexto a partir da palavra 
@@ -39,3 +39,7 @@
 
 - [X] Fazer com que o *Wait* entre iterações de busca não produza múltiplas linhas, mas que se atualize em um mesmo lugar tal como a barra de carregamento.
 
+- [X] acrescentar aspas a todas as células do .csv, para evitar que eventuais vírgulas baguncem a formatação do documento
+	- basicamente estão sendo acrescentados espaços/quebras-de-células entre interpontos e ponto-e-vírgulas
+
+- [X] Fazer com que o material seja criado instantanemaente após a aquisição de cada palavra, para não depender de alcançar até o final do script para conseguir extrair *alguma* coisa.

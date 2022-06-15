@@ -145,14 +145,44 @@ def fetch_group_as_string(group, single_list=False):
 
 class Word:
     def __init__(self, data_dict):
-        self.data = data_dict
-        self.concordances = self.data["concordances"]
-        self.name = self.concordances["Original Word"]
-        self.examples = self.data["examples"]
-        self.category = self.concordances["Part of Speech"]
-        self.transliteration = self.concordances["Transliteration"]
-        self.phonetics = self.concordances["Phonetic Spelling"]
-        self.definition = self.concordances["Definition"]
+        try:
+            self.data = data_dict
+        except KeyError as e:
+            self.data = "" 
+        try:
+            self.concordances = self.data["concordances"]
+        except KeyError as e:
+            self.concordances = "" 
+        try:
+            self.name = self.concordances["Original Word"]
+        except KeyError as e:
+            self.name = "" 
+
+        try:
+            self.examples = self.data["examples"]
+        except KeyError as e:
+            self.examples= "" 
+
+        try:
+            self.category = self.concordances["Part of Speech"]
+        except KeyError as e:
+            self.category = "" 
+
+        try:
+            self.transliteration = self.concordances["Transliteration"]
+        except KeyError as e:
+            self.transliteration = "" 
+
+        try:
+            self.phonetics = self.concordances["Phonetic Spelling"]
+        except KeyError as e:
+            self.phonetics = "" 
+
+        try:
+            self.definition = self.concordances["Definition"]
+        except KeyError as e:
+            self.definition = "" 
+
 
 if __name__ == "__main__": 
 

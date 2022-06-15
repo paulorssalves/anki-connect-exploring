@@ -1,4 +1,4 @@
-import re, os, string, sys
+import re, os, string, sys, csv
 import pandas as pd
 import json, time, urllib.request
 from tools.tokenization import (get_examples, get_frequency,
@@ -159,8 +159,45 @@ def time_log():
         sys.stdout.write('Wait... %s/%s\r' % (second, DURATION))
         time.sleep(1)
         sys.stdout.flush()
+        
+def csvfy(datapoint, output_file_name):
+    if type(output_file_name) is not str:
+        raise TypeError("variable 'output_file_name' must be of type 'str'.")
+ 
+    curr = datapoint[2] 
+    concordances = curr["concordances"]
 
-def acquire_data(list, amount=None):
+    dc = {
+        "word": clean_up(concordances["Original Word"]),
+        "phonetics": concordances["Phonetic Spelling"],
+        "meaning": "\""+concordances['Definition']+"\"",
+        "greek": fetch_group_as_string([tuple[0] for tuple in curr['examples']], single_list=True),
+        "english": fetch_group_as_string([tuple[1] for tuple in curr['examples']], single_list=True)
+    }
+
+    try:
+        dc["category"] = "\""+concordances["Part of Speech"]+"\"",
+    except KeyError as e:
+        print(e, "Category not found")
+        dc["category"] = "-" 
+
+    dc["context"] = "\""+get_context_and_clean_up(datapoint[1], wf)+"\""
+    dc["original"] = datapoint[1]        
+    dc["source"] = datapoint[0]        
+    # to display which word is being worked upon at the time
+
+    words_dataframe = pd.DataFrame.from_dict(dc, orient="index")
+    words_dataframe = words_dataframe.transpose()
+    words_dataframe.to_csv(os.path.join("output", output_file_name+".csv"), 
+                                        encoding="utf-8", mode="a", 
+                                        header=False, index=False)
+
+def send_to_blanks(datapoint, output_file_name):
+    with open(os.path.join("blanks", output_file_name)+"_blanks.csv", "a+", newline='') as wf:
+        csv_writer = csv.writer(wf)
+        csv_writer.writerow((datapoint,))
+
+def acquire_data(list, output_file_name, amount=None):
 
     RESPECTABLE_RANGE=10
 
@@ -184,10 +221,10 @@ def acquire_data(list, amount=None):
         if word_dict["source"] != None:
             result = (word_dict["source"], word_dict["input"], word_dict["output"])
             if result[2] not in already_present:
-                data.append(result)
+                csvfy(result, output_file_name)
             already_present.append(result[2])
         else:
-            blanks.append(word_dict["input"])
+            send_to_blanks(word_dict["input"], output_file_name)
 
         bible_searches += word_dict["search_num"]
 
@@ -195,47 +232,6 @@ def acquire_data(list, amount=None):
             time_log()
             bible_searches = 0
     
-    return data, blanks
-
-
-def produce_material(output_file_name, data=None, blanks=None):
-    if type(output_file_name) is not str:
-        raise TypeError("variable 'output_file_name' must be of type 'str'.")
-
-    if (data is not None) and (data != []):
-        for item in data:
-            if item[0] is not None:
-
-                curr = item[2]
-                concordances = curr["concordances"]
-
-                dc = {
-                    "word": clean_up(concordances["Original Word"]),
-                    "phonetics": concordances["Phonetic Spelling"],
-                    "category": "\""+concordances["Part of Speech"]+"\"",
-                    "meaning": "\""+concordances['Definition']+"\"",
-                    "greek": fetch_group_as_string([tuple[0] for tuple in curr['examples']], single_list=True),
-                    "english": fetch_group_as_string([tuple[1] for tuple in curr['examples']], single_list=True)
-                }
-                dc["context"] = "\""+get_context_and_clean_up(item[1], wf)+"\""
-                dc["original"] = item[1]        
-                dc["source"] = item[0]        
-                # to display which word is being worked upon at the time
-
-                words_dataframe = pd.DataFrame.from_dict(dc, orient="index")
-                words_dataframe = words_dataframe.transpose()
-                words_dataframe.to_csv(os.path.join("output", output_file_name+".csv"), 
-                                                    encoding="utf-8", mode="a", 
-                                                    header=False, index=False)
-            
-    if (blanks is not None) and (blanks != []):
-        blanks_dataframe = pd.DataFrame(blanks)
-        blanks_dataframe= blanks_dataframe.transpose()
-        blanks_dataframe.to_csv(os.path.join("blanks", output_file_name+"_blanks.csv"), 
-                                            encoding="utf-8", mode="a", 
-                                            header=False, index=False)
-
-
 if __name__ == "__main__":
 
     def get_number():
@@ -270,11 +266,9 @@ if __name__ == "__main__":
 
         print("\nGetting online data...\n")
 
-        data, blanks = acquire_data(reworked_fwl, get_number())
+        acquire_data(reworked_fwl, sys.argv[1], get_number())
         print()
 
-        print("\nCreating material...")
-        produce_material(sys.argv[1], data=data, blanks=blanks)
         regex_repair = re.compile("\"\"")
 
         print("\nRemoving safety quotation marks...\n")
@@ -286,4 +280,3 @@ if __name__ == "__main__":
 
     except urllib.error.URLError as e:
         print("\nThe", e, "error occurred. You need to have an Anki instance open.")
-
