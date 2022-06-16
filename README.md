@@ -10,7 +10,7 @@
 		- [ ] Wiktionary
 
 - [ ] Fazer com que programa analise o CSV no final da iteração e remova as aspas extras
-- [ ] Trocar os "\n" do coletor de exemplos do BibleHub por "<br><br>" 
+- [ ] Trocar os "\n" do coletor de exemplos do BibleHub por "\<br>\<br>" 
 
 # DONE
 - [X] arrumar forma de extrair contexto a partir da palavra 
