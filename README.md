@@ -10,7 +10,7 @@
 		- [ ] Wiktionary
 
 - [ ] Fazer com que programa analise o CSV no final da iteração e remova as aspas extras
-- [ ] Trocar os "\n" do coletor de exemplos do BibleHub por "<br><br>" 
+- [ ] Trocar os "\n" do coletor de exemplos do BibleHub por "\<br>\<br>" 
 - [ ] Testar essa função `get_number` que vem depois de `if __name__ == '__main__'`. Ela me parece estranha. Será que ela funciona mesmo?
 
 # DONE
