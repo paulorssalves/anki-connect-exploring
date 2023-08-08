@@ -61,8 +61,15 @@ footer {
 
 #main-navbar {
 	background-color: #29c2a6;
-	color: #ffe796;
+}
 
+#main-navbar a {
+	color: #ffe796;
+	text-decoration: none;
+}
+
+#main-navbar a:hover {
+	text-decoration: underline;
 }
 
 #main-navbar h1 {
