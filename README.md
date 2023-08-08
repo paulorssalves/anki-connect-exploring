@@ -6,6 +6,7 @@
 ### Context
 - [ ] Criar um console readonly com o output que vai normalmente pro terminal (algo como um console.out())
 	- Vai ser necessário usar JavaScript pra fazer isso
+- [ ] Fazer o update do `#output_form` a cada _fetch()_ da API, em vez de só no final.
 
 ### Connect
 - [ ] Linkar os `check buttons` e os `select menus` ao Flask
