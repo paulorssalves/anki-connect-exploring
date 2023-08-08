@@ -1,4 +1,4 @@
-import re, os, string, sys, csv
+import re, os, string, sys, csv, random
 import pandas as pd
 import json, time, urllib.request
 from tools.tokenization import (get_examples, get_frequency,
@@ -20,8 +20,8 @@ from urllib.error import URLError
 def boldify_selected_word(word, string):
     string_l = string.split()
     for index in range(len(string_l)):
-        if string_l[index] == word:
-            bold = "<b>"+word+"</b>"
+        if string_l[index].lower() == word.lower():
+            bold = "<b>"+word.lower()+"</b>"
             string_l[index] = bold 
     return string_l, bold
 
@@ -50,7 +50,7 @@ def get_context_and_clean_up(word, concordance):
     trailing_spaces_start = r"^\s+"
     trailing_spaces_end = r"\s+$"
 
-    cleaned_up_pre = re.sub(r'\s([?.!,:;"](?:\s|$))', r'\1', unfinished_string)
+    cleaned_up_pre = re.sub(r'\s([?.!,:;·"](?:\s|$))', r'\1', unfinished_string)
     cleaned_up_start = re.sub(trailing_spaces_start, "", cleaned_up_pre)
     final_string = re.sub(trailing_spaces_end, "", cleaned_up_start)
     
@@ -110,6 +110,19 @@ def get_input_for_material(wordlist, anki_cards):
 
     return reworked_fwl
 
+def refilter_fwl(working_list: list, filename: str) -> list:
+    f = open(os.path.join("output", filename+".csv"), encoding="UTF8")
+    reader = csv.reader(f)
+    for line in reader:
+        for entry in working_list:
+            if type(entry) == str:
+                if line[7] == entry:
+                    del working_list[working_list.index(entry)]
+            elif type(entry) == tuple:
+                if line[7] in (working_list[0], working_list[1]):
+                    del working_list[working_list.index(entry)]
+    return working_list
+
 def fetch_bible_word(word):
     link = get_link(BASE_URL, word)
     soup = get_entry_soup(link)
@@ -117,26 +130,41 @@ def fetch_bible_word(word):
 
     return word
 
+
+def time_log():
+    DURATION = 5 
+    sys.stdout.write("\n")
+    for second in range(DURATION):
+        sys.stdout.write('Wait... %s/%s\r' % (second, DURATION))
+        time.sleep(1)
+        sys.stdout.flush()
+    time.sleep(random.random())
+        
 def searcher(word):
     if type(word) == tuple:
         try:
             bible_word = fetch_bible_word(word[0])
+            time_log()
             return {"search_num": 1, "source": "BibleHub", "input": word[0], "output": bible_word.data}
 
         except MissingSchema:
             try:
                 bible_word = fetch_bible_word(word[1])
+                time_log()
                 return {"search_num": 2, "source": "BibleHub", "input": word[0], "output": bible_word.data}
 
             except MissingSchema:
                 return {"search_num": 2, "source": None, "input": word[0], "output": None}
+                time_log()
 
     elif type(word) == str:
         try: 
             bible_word = fetch_bible_word(word)
+            time_log()
             return {"search_num": 1, "source": "BibleHub", "input": word, "output": bible_word.data}
 
         except:
+                time_log()
                 return {"search_num": 1, "source": None, "input": word, "output": None}
     else:
         return {"search_num": 0, "source": None, "input": word, "output": None}
@@ -153,13 +181,6 @@ def progress(count, total, suffix=''):
     sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', suffix))
     sys.stdout.flush()  # As suggested by Rom Ruben
 
-def time_log():
-    DURATION = 60
-    for second in range(DURATION):
-        sys.stdout.write('Wait... %s/%s\r' % (second, DURATION))
-        time.sleep(1)
-        sys.stdout.flush()
-        
 def csvfy(datapoint, output_file_name):
     if type(output_file_name) is not str:
         raise TypeError("variable 'output_file_name' must be of type 'str'.")
@@ -170,13 +191,13 @@ def csvfy(datapoint, output_file_name):
     dc = {
         "word": clean_up(concordances["Original Word"]),
         "phonetics": concordances["Phonetic Spelling"],
-        "meaning": "\""+concordances['Definition']+"\"",
+        "meaning": concordances['Definition'],
         "greek": fetch_group_as_string([tuple[0] for tuple in curr['examples']], single_list=True),
         "english": fetch_group_as_string([tuple[1] for tuple in curr['examples']], single_list=True)
     }
 
     try:
-        dc["category"] = "\""+concordances["Part of Speech"]+"\"",
+        dc["category"] = concordances["Part of Speech"]
     except KeyError as e:
         print(e, "Category not found")
         dc["category"] = "-" 
@@ -199,9 +220,6 @@ def send_to_blanks(datapoint, output_file_name):
 
 def acquire_data(list, output_file_name, amount=None):
 
-    RESPECTABLE_RANGE=10
-
-    bible_searches = 0
     data = []
     blanks = []
     already_present = []
@@ -226,18 +244,12 @@ def acquire_data(list, output_file_name, amount=None):
         else:
             send_to_blanks(word_dict["input"], output_file_name)
 
-        bible_searches += word_dict["search_num"]
-
-        if bible_searches >= RESPECTABLE_RANGE:
-            time_log()
-            bible_searches = 0
-    
 if __name__ == "__main__":
 
     def get_number():
         try: 
             number = sys.argv[3]
-            return number
+            return int(number)
         except IndexError:
             return None 
 
@@ -261,7 +273,15 @@ if __name__ == "__main__":
         noteIDs = invoke('findNotes', query="deck:"+sys.argv[2]) 
         notesInfo = invoke('notesInfo', notes=noteIDs)
 
-        reworked_fwl = get_input_for_material(wordlist, notesInfo)
+        preworked_fwl = get_input_for_material(wordlist, notesInfo)
+        reworked_fwl = [] 
+
+        try: 
+            reworked_fwl = refilter_fwl(preworked_fwl, sys.argv[1])
+
+        except FileNotFoundError:
+            reworked_fwl = preworked_fwl
+
         print(reworked_fwl)
 
         print("\nGetting online data...\n")

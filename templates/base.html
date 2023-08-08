@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}Flask App{% endblock %}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<nav id="main-navbar">
+		<div class='container'>
+			<h1>iθλ</h1>
+		</div>
+	</nav>
+	<header>{% block header %}Flask App {% endblock %}</header>
+	<main>
+		<div class="container">
+			
+		 {% block content %}
+		 {% endblock %}
+		</div>
+	</main>
+	<footer>
+		<div class='container'>
+			<hr>
+		</div>
+		<p>&copy; Iridule Theta Languages</p>
+	</footer>
+</body>
+</html>
+

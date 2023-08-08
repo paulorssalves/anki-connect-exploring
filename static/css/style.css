@@ -1,0 +1,118 @@
+body {
+	margin: 0;
+}
+
+main {
+	display: block;
+	margin: 0 auto;
+	width: 90%;
+}
+
+header {
+	margin: 1.5em auto 1em;
+	text-align: center;
+}
+
+footer {
+	margin-top: 2em;
+	text-align: center;	
+	padding: 0.5em;
+}
+
+.container {
+	margin: 0 auto;
+	width: 60%;
+}
+
+.textfields {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	align-items:  center;
+}
+
+.textfields textarea {
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	resize: none;
+	margin: 1em;
+}
+
+#output-field {
+	display: block;
+	margin-bottom: 1em;
+	margin-left: 1em;
+}
+
+#download-csv {
+
+	display: block;
+}
+
+#input-block {
+	display: flex;
+	flex-direction: column;
+}
+
+.language-select {
+	width: 30%;
+}
+
+#main-navbar {
+	background-color: #29c2a6;
+	color: #ffe796;
+
+}
+
+#main-navbar h1 {
+	font-size: 2.5em;	
+	padding: 0.3em;
+	margin-top: 0;
+	font-family: sans-serif;
+	display: block;
+	margin-left: 2em;
+}
+
+#app-list {
+	list-style: none;
+	display: block;
+	margin: 0 auto;
+	padding: 1em 0;
+	width: 60%;
+}
+
+#app-list li {
+	background-color: #29c2a6;
+	padding: 1em;
+	margin: 1em;
+}
+
+#app-list li:hover {
+	background-color: #1da1a3;
+	transition: 0.5s;
+}
+
+#app-list li a{
+color: #fff6d6;
+text-decoration: none;
+}
+
+.go-back {
+	display: block;
+	margin: 1em 0;
+}
+
+.go-back button {
+	text-decoration: none;
+	padding: 1em;	
+}
+
+#language-options {
+	display: block;
+
+}
+
+#language-options select {
+display: inline-block;
+}

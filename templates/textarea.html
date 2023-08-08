@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Connect{% endblock %}
+
+{% block header %}Insira o texto completo abaixo{% endblock %}
+
+{% block content %}
+
+{% include 'includes/back_button.html' %}
+
+<div id="language-options">
+    <select class="language-select" name="">
+      <option value="0">Selecione a língua-fonte</option>
+      <option value="1">Inglês</option>
+    </select>
+
+    <select class="language-select" name="">
+      <option value="0">Selecione a língua-alvo</option>
+      <option value="1">Português</option>
+    </select>
+
+    <br>
+    <br>
+
+    <label for="lemma-checkbox">Lematizar</label>
+    <input type="checkbox" id="lemma-checkbox">
+
+    <br>
+    <label for="context-checkbox">Obter contexto</label>
+    <input type="checkbox" id="context-checkbox">
+</div>
+
+<div class="textfields">
+	<form method='post' id="input_form"  action="{{ url_for('anki_connect') }}">
+		<textarea id="input_field" name="input_content"></textarea>
+		<br>
+		<input type="submit" value="Enviar">
+	</form>
+  <form id="output_form" method="post">
+      <textarea id="output_field" name="" readonly></textarea>
+      <input type="submit" id="download-csv" download="output.csv" value="Baixar .csv" disabled>
+  </form>
+
+	<script>
+					const inputForm = document.getElementById('input_form');
+					const outputTextarea = document.getElementById('output_field');
+
+					inputForm.addEventListener('submit', (event) => {
+							event.preventDefault();
+							const formData = new FormData(inputForm);
+
+							fetch('{{ url_for("anki_connect") }}', {
+									method: 'POST',
+									body: formData
+							})
+							.then(response => response.text())
+							.then(data => {
+                  document.getElementById('download-csv').disabled = false;
+									outputTextarea.value = data;
+							})
+							.catch(error => {
+									console.error('Error:', error);
+							});
+					});
+
+    $(document).ready(function () {
+        $("#download-csv").click(function (event) {
+            event.preventDefault();
+            const textareaContent = $("#output_field").val();
+            const blob = new Blob([textareaContent], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = $("<a>")
+                .attr("href", url)
+                .attr("download", "content.csv")
+                .appendTo("body");
+            a[0].click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        });
+    });
+
+
+
+			</script>
+
+</div>
+
+{% endblock %}
