@@ -10,7 +10,7 @@
 
 ### Connect
 - [ ] Linkar os `check buttons` e os `select menus` ao Flask
-- [ ] Criar função de elaboração de _concordance_ da palavra pelo contexto de onde ela é retirada.
+- [X] Criar função de elaboração de _concordance_ da palavra pelo contexto de onde ela é retirada.
 - Funcionalidades
 	- [ ] Lematizar
 	- [ ] Dar o contexto
