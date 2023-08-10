@@ -31,7 +31,7 @@ class Word:
             self.left = [token.text for token in self.sentence[self.i-leftwards_feasible:self.i]]
 
         elif (leftwards_feasible >= nleft):
-            self.left = [token.text for token in self.sentence[self.i-6:self.i]]
+            self.left = [token.text for token in self.sentence[self.i-nleft:self.i]]
 
         elif (leftwares_feasible == 0 or nleft <= 0):
             self.left = ""
