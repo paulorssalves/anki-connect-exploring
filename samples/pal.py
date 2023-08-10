@@ -21,18 +21,11 @@ class Word:
         if trim==False:
             return self.sentence.text
 
-        leftwards_feasible = self.i
-        rightwards_feasible = len(self.sentence) - self.i
-
         # limita o valor de trim_left se não houver palavras o suficiente à esquerda
-        if (leftwards_feasible < trim_left and leftwards_feasible >= 0):
-            trim_left = self.i - leftwards_feasible
+        if (self.i <= trim_left):
+            trim_left = self.i
 
-        # limita o valor de trim_right se não houver palavras o suficiente à direita 
-        if (rightwards_feasible < trim_right and rightwards_feasible >= 0):
-            trim_right = rightwards_feasible - 1
-
-        self.trimmed = self.sentence[self.i-trim_left:1+self.i+trim_right].text
+        self.trimmed = self.sentence[self.i-trim_left:1+self.i+trim_right+1].text
 
         return self.trimmed
 
