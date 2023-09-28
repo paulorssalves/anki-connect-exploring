@@ -93,7 +93,7 @@ def get_input_for_material(wordlist, anki_cards):
 
     notes = []
     for card in anki_cards:
-        notes.append(cltk_normalize(clean_up(card['fields']['Word']['value'])))
+        notes.append(cltk_normalize(clean_up(card['fields']['Palavra']['value'])))
 
     fwl = [cltk_normalize(word) for word in wordlist if word not in notes]
     notes_group = lemmatizer.lemmatize(notes)
@@ -129,7 +129,6 @@ def fetch_bible_word(word):
     word = BibleWord(get_word_data(soup))
 
     return word
-
 
 def time_log():
     DURATION = 5 
@@ -257,11 +256,13 @@ if __name__ == "__main__":
     lemmatizer = GreekBackoffLemmatizer()
 
     text, wf = get_text(os.path.join("textos", sys.argv[1] + ".txt"))
+    print(text)
     
     tokens, token_set, phrases = get_tokens(text)
     frequency = get_frequency(tokens)
     cltk_nlp = NLP(language="grc")
-    cltk_doc = cltk_nlp.analyze(text)
+    print(cltk_nlp)
+    cltk_doc = cltk_nlp.analyze(text=text)
 
     wordlist = []
 

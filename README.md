@@ -1,6 +1,13 @@
 
 # README.md
 
+## Jupyter
+
+- Instalar os pacotes em `requirements.txt` com pip
+- Instalar os corpora: 
+	- `punkt` com nltk.download('punkt')
+	- `grc_models_cltk` com `importer = cltk.data.fetch.FetchCorpus(language='grc')` e `importer.import_corpus('grc_models_cltk')`
+
 ## Afazeres
 
 ### Context
@@ -12,14 +19,17 @@
 - [ ] Linkar os `check buttons` e os `select menus` ao Flask
 - [X] Criar função de elaboração de _concordance_ da palavra pelo contexto de onde ela é retirada.
 - Funcionalidades
-	- [ ] Lematizar
-	- [ ] Dar o contexto
-	- [ ] Pegar exemplos da internet via scraping (reaproveitar a implementação do _Context_)
-	- [ ] Conectar com o Anki
-		- [ ] Comparar com o vocabulário presente no Anki
+- [X] Lematizar
+- [ ] Dar o contexto
+- [ ] Pegar exemplos da internet via scraping (reaproveitar a implementação do _Context_)
+- [ ] Conectar com o Anki
+	- [ ] Comparar com o vocabulário presente no Anki
 
 #### Futuro
 
+- [ ] Calcular escore médio de texto a partir da pontuação das palavras individuais nele num índice de frequência
+	- [ ] Lematizar a lista com os ngramas para determinar os radicais mais comuns (começar, na verdade, com o corpus de 10.000 palavras, para ver se o programa é escalável); 
+		- [ ] n-gramas com posições diferentes na lista tem seus escores somados e a média dentre os dois (ou mais) é calculada, virando o novo escore.
 - [ ] Treinar modelo de tradução para prescindir do Context Reverso
 - [ ] Estimar $\theta$ do usuário a partir dos seus escores no Anki
 - [ ] Criar banco de dados com as palavras já inseridas e os contextos onde elas aparecem
