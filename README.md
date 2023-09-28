@@ -8,6 +8,9 @@
 	- `punkt` com nltk.download('punkt')
 	- `grc_models_cltk` com `importer = cltk.data.fetch.FetchCorpus(language='grc')` e `importer.import_corpus('grc_models_cltk')`
 
+**Uso**: `python create_material.py [nome do arquivo em textos/] [nome do baralho do anki]`
+- O campo "Word" está como "Palavra". Ajustar isso no próprio Anki ou no código-fonte.
+
 ## Afazeres
 
 ### Context
